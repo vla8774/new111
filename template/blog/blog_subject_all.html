@@ -1,0 +1,22 @@
+{% extends 'site_base.html' %}
+{% block title%} Все темы блога Русский инветор{% endblock %}
+{% block description%} Здесть представлены все посты блогра Руссский инвестор {% endblock %}
+{% block header %}{% endblock %}
+
+{% block menu%} {% endblock %}
+{% block page%}
+{{get_base_menu}}
+
+{% for post in subject %}
+            <p><a class="text-dark" href="{{ post.get_absolute_url }}" > {{ post}}</a></p>
+
+                <ul>
+                {% for post in post.result.all %}
+                   <li><a class="text-dark" href="{{ post.get_absolute_url }}">{{ post.title}}</a> </li>
+                 {% endfor %}
+                 </ul>
+
+      {% endfor %}
+
+{% endblock %}
+{% block footer%} {% endblock %}

@@ -1,0 +1,31 @@
+ {% load i18n %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/project.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome-4.7.0/css/font-awesome.mini.css' %}">
+        <script src="{% static "js/lib.js" %}"></script>
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+   </head>
+   <body>
+        <!--Модальное окно Регистрации и Входа-->
+
+        {% include "_nav.html" %}
+
+        <div class="container">
+            <br><br><br>
+        {% block page%}{% endblock %}
+        {% block body %}{% endblock %}
+        </div>
+
+        <!-- JavaScript -->
+        {% block scripts %}
+        <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+        {% endblock scripts %}
+        {% block extrascripts %}{% endblock extrascripts %}
+        </div>
+    </body>

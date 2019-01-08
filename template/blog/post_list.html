@@ -1,0 +1,18 @@
+
+{% extends 'site_base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+{{get_base_menu}}
+    {% for post in posts %}
+                <p><h3><a style="text-decoration: none;" class="text-dark" href="{{post.get_absolute_url}}">{{ post.title|upper}}</a></h3></p>
+                <p align="justify">{{post.get_short_text|truncatewords:69 }}
+                <p><a class="btn btn-light" href="{{post.get_absolute_url}}">Читать полностью</a></p>
+        <hr>
+    {% endfor %}
+
+
+
+{% endblock %}

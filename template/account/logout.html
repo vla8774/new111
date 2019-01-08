@@ -1,0 +1,18 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+
+
+{% block body %}
+    <form method="POST" action="{% url "account_logout" %}">
+        <legend>{% trans "Выйти" %}</legend>
+        <fieldset>
+            {% csrf_token %}
+            <p>{% trans "Вы действительно хотите выйти?" %}</p>
+            <div class="form-actions">
+                <button class="btn btn-danger">{% trans "Выйти" %}</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

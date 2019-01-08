@@ -1,0 +1,20 @@
+{% extends 'site_base.html' %}
+{% block title%}{{subject.title}}{% endblock %}
+{% block description%}{{subject.description}}{% endblock %}
+{% block keywords%}{{subject.keywords}}{% endblock %}
+{% block header %}{% endblock %}
+{% block page%}
+{{get_base_menu}}
+<h1>{{subject.title}}</h1>
+    {{subject.text}}
+ {% for result in subject.result.all%}
+            <p><h2><a style="text-decoration: none;" class="text-dark" href="{{result.get_absolute_url}}">{{ result.title}}</a></h2></p>
+            <p>{{result.published_date}}</p>
+            <p align="justify">{{result.text|truncatewords:69 }}
+              <p><a class="btn btn-light" href="{{result.get_absolute_url}}">Читать полностью</a></p>
+            </p>
+
+
+         {% endfor %}
+{% endblock %}
+{% block footer%} {% endblock %}

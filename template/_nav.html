@@ -1,0 +1,31 @@
+   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                ИНВЕСТИЦИИ
+            </a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/subject" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Все темы</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown10">
+                                {% for subject in subjects %}
+                                    <a class="dropdown-item" href="{{subject.get_absolute_url}}">{{ subject.title }}</a>
+                                {% endfor %}
+                            </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Зачем?</a>
+                    </li>
+                </ul>
+                <div class=" my-2 my-lg-0">
+                    {% if user.is_authenticated %}
+                        {{ user.get_username }}&nbsp;
+                        <a class="btn btn-outline-danger btn-circle" href="{% url 'account_logout'%}"><i class="fas fa-user"></i></a>
+                    {% else %}
+                        <a class="btn btn-outline-primary btn-circle" href="{% url 'account_login'%}?next={{request.path}}"><i class="fas fa-user"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>

@@ -1,0 +1,39 @@
+{% extends "site_base.html" %}
+{% load widget_tweaks %}
+{% load account_tags %}
+{% load i18n %}
+{% load bootstrap %}
+
+
+
+{% block body %}
+    <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        <legend>{% trans "Войти" %}</legend>
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <div class="form-actions">
+            <button class="btn btn-primary">{% trans "Войти" %}</button>
+        </div>
+
+        <a href="{% url "account_password_reset" %}" class="forgot-password">{% trans "Забыли пароль?" %}</a>
+
+        {% if ACCOUNT_OPEN_SIGNUP %}
+            <p class="login-signup">
+                {% trans "Не имете аккаунта?" %}
+                <a href="{% urlnext 'account_signup' %}">{% trans "Зарегистрироваться" %}</a>
+            </p>
+        {% endif %}
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#id_username').focus();
+        });
+    </script>
+{% endblock %}

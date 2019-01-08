@@ -1,0 +1,62 @@
+{% extends 'site_base.html' %}
+{% load l10n %}
+{% load i18n %}
+{% load comments %}
+{% load comments_xtd %}
+{% block title%}{{post.title}}{% endblock %}
+{% block description%}{{post.description}}{% endblock %}
+{% block keywords%}{{post.keywords}}{% endblock %}
+{% block header %}{% endblock %}
+{get_base_menu}}
+{% block page%}
+    <div class="post">
+        <h1>{{ post.title }}</h1>
+        <div class="d-flex flex-row bd-highlight mb-3">
+              <div class="p-2 bd-highlight"><img src="../../../../media/{{post.author.photo }}" width="49" height="49" alt="{{post.username}}" class="rounded"></div>
+                <div class="p-2 bd-highlight align-self-center">Автор: {{post.author}}.</div>
+                <div class="p-2 bd-highlight align-self-center">
+                    {% if post.published_date %}
+                    <div class="date">
+                        Опубликовано: {{ post.published_date }}.
+
+                    </div>
+                    {% endif %}
+                </div>
+        </div>
+        <p align="justify">{{ post.text|linebreaksbr }}</p>
+    </div>
+    <hr>
+    <center>{% get_comment_count for post as comment_count %} Отозвалось {{ comment_count }}&nbsp;&nbsp;читателей.</center>
+    <!-- Button trigger modal -->
+    {% if user.is_authenticated %}
+        {% get_comment_form for post as form %}
+            <form method="POST" action="{% comment_form_target %}" class="form-horizontal">
+                {% csrf_token %}
+                <fieldset>
+                    {% for field in form %}
+                        {% if field.is_hidden %}<div>{{ field }}</div>{% endif %}
+                    {% endfor %}
+                    <div style="display:none">{{ form.honeypot }}</div>
+                    <div class="form-group {% if 'comment' in form.errors %}has-error{% endif %}">
+                        <div class="col-lg-offset-1 col-md-offset-1 col-lg-12 col-md-12">
+                            {{ form.comment }}
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="col-lg-offset-3 col-md-offset-3 col-lg-7 col-md-7">
+                    <input type="hidden" name="next" value="/blog/{{post.slug}}/" />
+                    <input type="submit" name="post" value="Отправить" class="btn btn-primary" />
+                </div>
+            </form>
+        <hr>
+        {% else %}
+        <center>Войдите или зарегистрируйтесь</center>
+        {% endif %}
+        {% render_xtdcomment_tree for post %}
+<div class="p-0 pl-sm-3 pl-md-0 pr-sm-4">
+
+
+</div>
+{% endblock %}
+
+{% block footer%} {% endblock %}
