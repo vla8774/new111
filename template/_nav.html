@@ -9,11 +9,7 @@
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="/subject" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Все темы</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown10">
-                                {% for subject in subjects %}
-                                    <a class="dropdown-item" href="{{subject.get_absolute_url}}">{{ subject.title }}</a>
-                                {% endfor %}
-                            </div>
+                           <div id="subject-menu" class="dropdown-menu" aria-labelledby="dropdown10"></div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Зачем?</a>

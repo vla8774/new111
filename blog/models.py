@@ -5,6 +5,7 @@ from django.urls import reverse
 from transliterate import translit
 
 
+
 class SubjectPost(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=200, blank=True, null=True)
@@ -17,6 +18,20 @@ class SubjectPost(models.Model):
 
     def get_absolute_url(self):
         return reverse('subject_detail', kwargs={'url': self.url})
+
+    # Доступно как поле за счет декоратора property
+    @property
+    def absolute_url(self):
+        return reverse('subject_detail', kwargs={'url': self.url})
+
+    @property
+    def subject(self):
+
+        return \
+        {
+            "title" : self.title,
+            "url" : self.absolute_url
+        }
 
     def save(self, *args, **kwargs):
         url = translit(self.title, 'ru', reversed=True)
