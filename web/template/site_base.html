@@ -7,25 +7,39 @@
         <link rel="stylesheet" href="{% static 'css/project.css' %}">
         <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome-4.7.0/css/font-awesome.mini.css' %}">
 
-        <script src="http://malsup.github.com/jquery.form.js"></script>
    </head>
    <body>
-        <!--Модальное окно Регистрации и Входа-->
-
+        <!--Меню-->
         {% include "_nav.html" %}
+
 
         <div class="container">
             <br><br><br>
+        <!---->
         {% block page%}{% endblock %}
+        <!--авторизация-->
         {% block body %}{% endblock %}
         </div>
-
-
+        <p>Click <a data-toggle="modal" data-target="#modal" href="{% url 'account_login' %}">here</a> to show the modal</p>
+        <div class="modal fade" id="modal"></div>
         <!-- JavaScript -->
         {% block scripts %}
+        <script src="http://malsup.github.com/jquery.form.js"></script>
         <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
         <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <!--отвечает за меню-->
         <script src="{% static "js/lib.js" %}"></script>
+        <script>
+$('#modal').on('show.bs.modal', function (event) {
+    var modal = $(this)
+    $.ajax({
+        url: "{% url 'account_login' %}",
+        context: document.body
+    }).done(function(response) {
+        modal.html(response);
+    });
+})
+</script>
         {% endblock scripts %}
         {% block extrascripts %}{% endblock extrascripts %}
         </div>

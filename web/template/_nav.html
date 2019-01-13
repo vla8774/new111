@@ -20,7 +20,7 @@
                         {{ user.get_username }}&nbsp;
                         <a class="btn btn-outline-danger btn-circle" href="{% url 'account_logout'%}"><i class="fas fa-user"></i></a>
                     {% else %}
-                        <a class="btn btn-outline-primary btn-circle" href="{% url 'account_login'%}?next={{request.path}}"><i class="fas fa-user"></i></a>
+                        <a class="btn btn-outline-primary btn-circle" href="{% url 'account_login'%}"><i class="fas fa-user"></i></a>
                     {% endif %}
                 </div>
             </div>
